@@ -5,7 +5,7 @@ import scala.collection.immutable.Stream.Empty*/
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.sql.functions.{col, concat, lit}
+import org.apache.spark.sql.functions.{col, concat, lit, avg }
 
 object HelloWorld {
 
@@ -75,12 +75,13 @@ object HelloWorld {
     // QUERY AVERAGE BY AGE DESC
     df
       .select(columnAge)
-      .groupBy(columnAge)
-      .count()
-      .orderBy(col("count").desc)
+      .groupBy(col("age"))
+      .agg(
+        avg(col("age")).as("Média")
+      )
       .show()
 
-    // QUERY NAME LIKE JOAO PEDRO
+    // QUERY NAME LIKE JOAO
     df
       .filter(col("name").like("%João%"))
       .select(columnId, columnName)
