@@ -76,10 +76,20 @@ object HelloWorld {
     df
       .select(columnAge)
       .groupBy(col("age"))
+      // .count()
       .agg(
         avg(col("age")).as("Média")
       )
       .show()
+
+    df
+      .select(columnId, columnName, columnAge)
+      .where(df("age") === 20)
+      /*.agg(
+        avg(col("age")).as("Média")
+      )*/
+      .show()
+
 
     // QUERY NAME LIKE JOAO
     df
