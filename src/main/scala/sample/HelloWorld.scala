@@ -12,6 +12,8 @@ object HelloWorld {
   def main(args: Array[String]): Unit = {
 
     // col("colName") === $"colName"
+
+    // DELIGA ALGUMAS INFORMAÇÕES DO LOG
     Logger.getLogger("org").setLevel(Level.OFF)
     Logger.getLogger("akka").setLevel(Level.OFF)
     val sparkConf =
