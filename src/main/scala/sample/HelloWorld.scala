@@ -5,11 +5,13 @@ import scala.collection.immutable.Stream.Empty*/
 import org.apache.log4j.{Level, Logger}
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.{SparkConf, SparkContext}
-
+import org.apache.spark.sql.functions.{col, concat, lit}
 
 object HelloWorld {
 
   def main(args: Array[String]): Unit = {
+
+    // col("colName") === $"colName"
     Logger.getLogger("org").setLevel(Level.OFF)
     Logger.getLogger("akka").setLevel(Level.OFF)
     val sparkConf =
@@ -66,6 +68,26 @@ object HelloWorld {
     df
       .select(columnId, columnName.as("Nome"), columnMail.as("E-mail"), columnStatus)
       .where(df("id") === 3)
+      .show()
+
+    // QUERY AVERAGE BY AGE DESC
+    df
+      .select(columnAge)
+      .groupBy(columnAge)
+      .count()
+      .orderBy(col("count").desc)
+      .show()
+
+    // QUERY NAME LIKE JOAO PEDRO
+    df
+      .filter(col("name").like("%João%"))
+      .select(columnId, columnName)
+      .show()
+
+    // QUERY CONCAT NAME AND LAST NAME
+    df
+      .select(concat(col("name"), lit(" "), col("lastName")).as("Nome"))
+      .orderBy(columnName)
       .show()
 
   }
