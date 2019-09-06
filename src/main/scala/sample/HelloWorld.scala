@@ -19,6 +19,7 @@ object HelloWorld {
     val sparkConf =
       new SparkConf()
         .setAppName("Sample Spark")
+        .set("spark.driver.allowMultipleContexts", "true") // https://stackoverflow.com/questions/32827333/spark-multiple-contexts
         .setMaster("local")
 
     // LE O JSON
@@ -91,6 +92,12 @@ object HelloWorld {
       .select(concat(col("name"), lit(" "), col("lastName")).as("Nome"))
       .orderBy(columnName)
       .show()
+
+    // LE O JSON
+    val dfMusic = new SQLContext(new SparkContext(sparkConf)).read.json("Jsons/Music.json")
+
+    // PRINTA O SCHEMA DO JSON
+    dfMusic.printSchema()
 
   }
 
