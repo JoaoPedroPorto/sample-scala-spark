@@ -99,6 +99,25 @@ object HelloWorld {
     // PRINTA O SCHEMA DO JSON
     dfMusic.printSchema()
 
+    // COLLUMNS
+    val columnAlbum         = dfMusic("Album")
+    val columnArtist        = dfMusic("Artist")
+    val columnArtistDisplay = dfMusic("Artist Display")
+    val columnBPM           = dfMusic("BPM")
+    val columnFileName      = dfMusic("File Name")
+    val columnGenre         = dfMusic("Genre")
+    val columnISRC          = dfMusic("ISRC")
+    val columnLength        = dfMusic("Length")
+    val columnRecordCompany = dfMusic("Record Company")
+    val columnTitle         = dfMusic("Title")
+    val columnUniverse      = dfMusic("Universe")
+    val columnYear          = dfMusic("Year")
+
+    dfMusic
+      .select(columnAlbum, columnArtistDisplay, columnArtist, columnBPM, columnGenre, columnRecordCompany, columnISRC, columnLength, columnFileName, columnTitle, columnUniverse, columnYear)
+      .orderBy(columnGenre)
+      .show(9000)
+
   }
 
 }
